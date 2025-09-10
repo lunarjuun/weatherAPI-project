@@ -4,9 +4,9 @@ class JsonReader:
         self.base_url = base_url
         self.headers = {"User-Agent": user_agent}
 
-    def fetch(self, endpoint="", parameters=None):
+    def fetch(self, endpoint="", params=None):
         url = f"{self.base_url}{endpoint}"
-        response = requests.get(url, headers=self.headers, parameters=parameters)
+        response = requests.get(url, headers=self.headers, params=params)
         response.raise_for_status()
         return response.json()
     

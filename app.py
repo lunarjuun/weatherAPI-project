@@ -1,7 +1,7 @@
 from myjsonreader import JsonReader
 
 def main():
-    api = JsonReader("https://api.met.no/weatherapi/locationforecast/2.0/compact")
+    api = JsonReader("https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=59.91&lon=10.75")
     data = api.fetch(params={"lat": 59.91, "lon": 10.75})
     print(data["properties"]["timeseries"][0])
 

@@ -1,0 +1,7 @@
+pyproject.toml
+myjsonreader.egg-info/PKG-INFO
+myjsonreader.egg-info/SOURCES.txt
+myjsonreader.egg-info/dependency_links.txt
+myjsonreader.egg-info/requires.txt
+myjsonreader.egg-info/top_level.txt
+myjsonreader/myjsonreader/client.py
