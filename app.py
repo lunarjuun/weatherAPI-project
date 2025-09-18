@@ -1,9 +1,19 @@
 from myjsonreader import JsonReader
+from datetime import datetime
 
 def main():
-    api = JsonReader("https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=59.91&lon=10.75")
-    data = api.fetch()
-    print(data["properties"]["timeseries"][0])
+    api = JsonReader("https://api.met.no/weatherapi/locationforecast/2.0/compact")
+    data = api.fetch(params={"lat": 59.91, "lon": 10.75})
+    
+    entry = data["properties"]["timeseries"][0]
+    dt = datetime.fromisoformat(entry["time"].replace("Z", "+00:00"))
+    temperature = entry["data"]["instant"]["details"]["air_temperature"]
+
+    city = "Oslo" #hardcoded for now since api only has coords not city name
+    print("City: {}".format(city))
+    print("Date: {}".format(dt.strftime("%Y-%m-%d")))
+    print("Time: {}".format(dt.strftime("%H:%M:%S")))
+    print("Temperature: {} °C".format(temperature))
 
 if __name__ == "__main__":
     main()
