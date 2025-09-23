@@ -18,6 +18,9 @@ def main():
 if __name__ == "__main__":
     main()
 
+    # lagre i minne eller lagre i fil (minne er raskere å utvikle og raskere og kjøre, men fil har mer plass til mer data)
+    # CSV eller XML (lagre data på fil, raskere å bruke enn å sette opp MongoDB eller Mysql)
+
 # import requests
 # from datetime import datetime, date, timedelta
 
