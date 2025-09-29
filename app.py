@@ -1,19 +1,25 @@
 from myjsonreader import JsonReader
 from datetime import datetime
+import csv
 
 def main():
     api = JsonReader("https://api.met.no/weatherapi/locationforecast/2.0/compact")
     data = api.fetch(params={"lat": 59.91, "lon": 10.75})
-    
-    entry = data["properties"]["timeseries"][0]
-    dt = datetime.fromisoformat(entry["time"].replace("Z", "+00:00"))
-    temperature = entry["data"]["instant"]["details"]["air_temperature"]
 
-    city = "Oslo" #hardcoded for now since api only has coords not city name
-    print("City: {}".format(city))
-    print("Date: {}".format(dt.strftime("%Y-%m-%d")))
-    print("Time: {}".format(dt.strftime("%H:%M:%S")))
-    print("Temperature: {} °C".format(temperature))
+    with open("weather.csv", "w", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        writer.writerow(["City", " Date", " Time", " Temperature"])
+
+        for e in data["properties"]["timeseries"][:24]:
+            dt = datetime.fromisoformat(e["time"].replace("Z", "+00:00"))
+            writer.writerow([
+                "Oslo",
+                dt.strftime("%Y-%m-%d"),
+                dt.strftime("%H:%M:%S"),
+                e["data"]["instant"]["details"]["air_temperature"]
+            ])
+
+    print("Data inserted into weather.csv, check it.")
 
 if __name__ == "__main__":
     main()
