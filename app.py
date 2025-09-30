@@ -8,14 +8,14 @@ def main():
 
     with open("weather.csv", "w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
-        writer.writerow(["City", " Date", " Time", " Temperature"])
+        writer.writerow(["City", " Date", " Time", " temperature"])
 
         for e in data["properties"]["timeseries"][:24]:
             dt = datetime.fromisoformat(e["time"].replace("Z", "+00:00"))
             writer.writerow([
                 "Oslo",
-                dt.strftime("%Y-%m-%d"),
-                dt.strftime("%H:%M:%S"),
+                dt.strftime(" %Y-%d-%m"),
+                dt.strftime(" %H:%M:%S"),
                 e["data"]["instant"]["details"]["air_temperature"]
             ])
 
