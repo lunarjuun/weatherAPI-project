@@ -17,9 +17,11 @@ def main():
     while True:
         print("|------------------------------------------------------|")
         print("> Velkommen til WeatherAPI!")
+        
         print("...")
         city = input("> Tast inn bynavn: ").strip()
         print("...")
+        
         coords = geocode(city)
         if not coords:
             print(f'> Feil: Kan ikke finne en by med navnet "{city}".')
@@ -42,13 +44,10 @@ def main():
             writer = csv.writer(f)
             writer.writerow(["City", "Date", "Time", "Temperature"])
             writer.writerows(forecast)
-        print("|------------------------------------------------------|")
-        print("...")
         
-        break
+        continue
 
         # print(f"Lagret {len(forecast)} rader til {CSV_FILE}")
-        break
 
 if __name__ == "__main__":
     main()
