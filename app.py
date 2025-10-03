@@ -73,3 +73,10 @@ if __name__ == "__main__":
 #     main()
 
 #     # 59.91222135734928, 10.756120375589227
+
+#  key value database
+
+# redis, valkey, memcache (for offline use, temporary)
+# persistent storage, vanlige databaser som mysql, nosql, mariadb, postgresql
+# sqlite <- (dårlig for store programmer, bra for små programmer)
+# firebase 
