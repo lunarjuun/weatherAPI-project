@@ -12,7 +12,7 @@ def geocode(city: str):
     r.raise_for_status()
     results = r.json()
     return (float(results[0]["lat"]), float(results[0]["lon"])) if results else None
-
+       
 def main():
     while True:
         print("|------------------------------------------------------|")
