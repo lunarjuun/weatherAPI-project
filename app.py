@@ -23,7 +23,7 @@ def main():
         print("...")
         
         coords = geocode(city)
-        if not coords:
+        if not coords: 
             print(f'> Feil: Kan ikke finne en by med navnet "{city}".')
             continue
 
