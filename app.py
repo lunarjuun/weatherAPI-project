@@ -6,13 +6,29 @@ API_URL = "https://api.met.no/weatherapi/locationforecast/2.0/compact"
 USER_AGENT = "weatherapp/0.1"
 CSV_FILE = "weather.csv"
 
+PERIODS = [ # time period intervals
+    (0, 8, "00-08"),
+    (8, 12, "08-12"),
+    (12, 18, "12-18"),
+    (18, 24, "18-00"),
+]
+
 def geocode(city: str):
     url = "https://nominatim.openstreetmap.org/search"
     r = requests.get(url, params={"q": city, "format": "json", "limit": 1}, headers={"User-Agent": USER_AGENT})
     r.raise_for_status()
     results = r.json()
     return (float(results[0]["lat"]), float(results[0]["lon"])) if results else None
-       
+
+def group_by_day(data):
+    grouped = {}
+    for e in data["properties"]["timeseries"]:
+        dt = datetime.fromisoformat(e{"time"}.replace("Z", "+00:00"))
+        day = dt.date()
+        temp = e["data"]["instant"]["details"]["air_temperature"]
+        grouped.setdefault(day, [].append((dt, temp)))
+    return grouped
+
 def main():
     while True:
         print("|------------------------------------------------------|")
@@ -51,32 +67,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-    # lagre i minne eller lagre i fil (minne er raskere å utvikle og raskere og kjøre, men fil har mer plass til mer data)
-    # CSV eller XML (lagre data på fil, raskere å bruke enn å sette opp MongoDB eller Mysql)
-
-# import requests
-# from datetime import datetime, date, timedelta
-
-# def hent_data():
-#     url = "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=59.91&lon=10.75"
-#     headers = {"User-Agent": "Weather-API-project (internship mini project)"}
-#     response = requests.get(url, headers=headers)
-#     return response.json()
-
-# def main():
-#     data = hent_data()
-#     print(data)
-
-# if __name__ == "__main__":
-#     main()
-
-#     # 59.91222135734928, 10.756120375589227
-
-#  key value database
-
-# redis, valkey, memcache (for offline use, temporary)
-# persistent storage, vanlige databaser som mysql, nosql, mariadb, postgresql
-# sqlite <- (dårlig for store programmer, bra for små programmer)
-# firebase 
