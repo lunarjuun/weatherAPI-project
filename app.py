@@ -23,11 +23,20 @@ def geocode(city: str):
 def group_by_day(data):
     grouped = {}
     for e in data["properties"]["timeseries"]:
-        dt = datetime.fromisoformat(e{"time"}.replace("Z", "+00:00"))
+        dt = datetime.fromisoformat(e["time"].replace("Z", "+00:00"))
         day = dt.date()
         temp = e["data"]["instant"]["details"]["air_temperature"]
-        grouped.setdefault(day, [].append((dt, temp)))
+        grouped.setdefault(day, []).append((dt, temp))
     return grouped
+
+def summarize_period(temps):
+    if not temps:
+        return None
+    t_values = [t for _, t in temps]
+    return min(t_values), max (t_values), sum (t_values) / len(t_values)
+
+def summarize_day(entries):
+    summary = []
 
 def main():
     while True:
